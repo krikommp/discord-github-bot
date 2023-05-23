@@ -30,7 +30,7 @@ async def on_message(message):
         await send_github_commit_message()
         
 async def send_github_commit_message(root: model.Root):
-    channel = bot.get_channel(globals.DISCROD_BOT_DEV_CHANNEL_ID)
+    channel = bot.get_channel(1110182800092565544)
     await channel.send(f"""
     收到一个新的提交喵！
     提交人：{root.head_commit.committer.name}
