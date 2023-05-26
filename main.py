@@ -30,14 +30,17 @@ async def on_message(message):
         await send_github_commit_message()
         
 async def send_github_commit_message(root: model.Root):
-    channel = bot.get_channel(1110182800092565544)
+    channel = bot.get_channel(globals.DISCROD_BOT_DEV_CHANNEL_ID)
+    modified = '、'.join(root.head_commit.modified) if root.head_commit.modified else '无'
+    added = '、'.join(root.head_commit.added) if root.head_commit.added else '无'
+    removed = '、'.join(root.head_commit.removed) if root.head_commit.removed else '无'
     await channel.send(f"""
-    收到一个新的提交喵！
-    提交人：{root.head_commit.committer.name}
-    提交信息：{root.head_commit.message}
-    以下文件发生了修改：{root.head_commit.modified}
-    以下文件添加了: {root.head_commit.added}
-    以下文件被删除了：{root.head_commit.removed}""", view=CommitUrl(root.head_commit.url))
+**收到一个新的提交喵！** 🐱
+- **提交人**：{root.head_commit.committer.name}
+- **提交信息**：{root.head_commit.message}
+- **以下文件发生了修改**：`{modified}`
+- **以下文件添加了**：{added}
+- **以下文件被删除了**：{removed}""", view=CommitUrl(root.head_commit.url))
 
 @app.post("/webhook")
 async def webhook(request: Request):

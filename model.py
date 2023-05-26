@@ -13,7 +13,6 @@ class Pusher(BaseModel):
 class Persion(BaseModel):
     name: str
     email: str
-    username: str
     
 class CommitsItem(BaseModel):
     id: str
